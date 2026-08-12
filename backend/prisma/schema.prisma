@@ -1,13 +1,49 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
+}
+
+model Itineraire {
+  codeit   String   @id
+  villedep String
+  villearr String
+
+  voitures Voiture[]
+}
+
+model Voiture {
+  idvoit String @id
+  design String
+  codeit String
+  frais  Int
+
+  itineraire Itineraire @relation(fields: [codeit], references: [codeit])
+
+  envois Envoyer[]
+}
+
+model Envoyer {
+  idenvoi          Int      @id @default(autoincrement())
+  idvoit           String
+  colis            String
+  nomEnvoyeur      String
+  emailEnvoyeur    String
+  date_envoi       DateTime
+  frais            Int
+  nomRecepteur     String
+  contactRecepteur String
+
+  voiture   Voiture   @relation(fields: [idvoit], references: [idvoit])
+  reception Recevoir?
+}
+
+model Recevoir {
+  idrecept    Int      @id @default(autoincrement())
+  idenvoi     Int      @unique
+  date_recept DateTime
+
+  envoyer Envoyer @relation(fields: [idenvoi], references: [idenvoi])
 }
