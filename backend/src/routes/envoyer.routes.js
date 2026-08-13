@@ -4,6 +4,8 @@ const router = express.Router();
 
 const envoyerController = require("../controllers/envoyer.controller");
 
+router.get("/:idenvoi/pdf", envoyerController.genererRecuPDF);
+
 // Tous les envois
 router.get("/", envoyerController.getAll);
 

@@ -1,4 +1,5 @@
 const prisma = require("../config/database");
+const emailService = require("./email.services");
 
 // ==========================================
 // Récupérer toutes les réceptions

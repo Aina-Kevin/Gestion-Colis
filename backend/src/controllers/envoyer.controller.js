@@ -1,5 +1,5 @@
 const envoyerService = require("../services/envoyer.services");
-
+const pdfService = require("../services/pdf.services");
 // ==========================================
 // GET /api/envois
 // ==========================================
@@ -192,6 +192,22 @@ const remove = async (req, res, next) => {
   }
 };
 
+const genererRecuPDF = async (req, res, next) => {
+  try {
+    const { idenvoi } = req.params;
+
+    const resultat = await pdfService.genererRecu(idenvoi, res);
+
+    if (!resultat) {
+      return res.status(404).json({
+        message: "Envoi introuvable",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAll,
   rechercher,
@@ -199,4 +215,5 @@ module.exports = {
   create,
   update,
   remove,
+  genererRecuPDF,
 };
