@@ -1,9 +1,18 @@
-import React from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <div className='bg-green-800'>aona a</div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
