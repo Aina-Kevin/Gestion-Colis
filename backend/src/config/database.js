@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
 const { PrismaClient } = require("@prisma/client");
+
 const adapter = new PrismaMariaDb({
   host: process.env.DATABASE_HOST,
   port: Number(process.env.DATABASE_PORT),
